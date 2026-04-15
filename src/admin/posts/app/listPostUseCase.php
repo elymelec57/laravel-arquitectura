@@ -2,17 +2,17 @@
 
 namespace Src\admin\posts\app;
 
-use Src\admin\posts\domain\contracts\postRepositoryInterface;
+use Src\admin\posts\domain\contracts\ListPostsInterface;
 
 final class listPostUseCase
 {
-    public function __construct(private postRepositoryInterface $postRepository)
+    public function __construct(private ListPostsInterface $listPostsInterface)
     {
     }
 
     public function execute()
     {
-        $posts = $this->postRepository->getAllPosts();
+        $posts = $this->listPostsInterface->getAllPosts();
         return array_map(function ($post) {
             return $post->toArray();
         }, $posts);

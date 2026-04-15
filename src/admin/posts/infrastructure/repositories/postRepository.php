@@ -41,17 +41,4 @@ class postRepository implements postRepositoryInterface
             new userIdPost($post->user_id)
         );
     }
-
-    public function getAllPosts(): array
-    {
-       $posts = PostModel::all();
-        return $posts->map(function ($post) {
-            return new Post(
-                $post->id,
-                new titlePost($post->title),
-                new descriptionPost($post->description),
-                new userIdPost($post->user_id)
-            );
-        })->toArray();
-    }
 }

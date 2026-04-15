@@ -3,7 +3,7 @@
 namespace Src\admin\posts\infrastructure\controllers;
 
 use App\Http\Controllers\Controller;
-use Src\admin\posts\infrastructure\repositories\postRepository;
+use Src\admin\posts\infrastructure\repositories\listPostRepository;
 use Src\admin\posts\app\listPostUseCase;
 
 final class ListPostsController extends Controller
@@ -11,8 +11,8 @@ final class ListPostsController extends Controller
     public function __invoke()
     {
         try {
-            $postRepository = new postRepository();
-            $listPost = new listPostUseCase($postRepository);
+            $listPostRepository = new listPostRepository();
+            $listPost = new listPostUseCase($listPostRepository);
             $posts = $listPost->execute();
             return inertia('admin/posts/index', ['posts' => $posts]);
         } catch (\Exception $e) {

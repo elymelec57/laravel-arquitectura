@@ -10,6 +10,5 @@ interface postRepositoryInterface
     // public function delete(Post $post): void;
     public function findById(int $id): ?Post;
 
-    public function getAllPosts(): array;
     // public function findAll(): array;
 }
