@@ -6,6 +6,7 @@ use Src\admin\posts\domain\entities\Post;
 use Src\admin\posts\domain\contracts\postRepositoryInterface;
 use Src\admin\posts\domain\valueObjects\titlePost;
 use Src\admin\posts\domain\valueObjects\descriptionPost;
+use Src\admin\posts\domain\valueObjects\userIdPost;
 
 class storePostUseCase
 {
@@ -13,9 +14,9 @@ class storePostUseCase
     {
     }
 
-    public function execute(int $id, string $title, string $description): void
+    public function execute(int $id, string $title, string $description, int $user_id): void
     {
-        $post = new Post($id, new titlePost($title), new descriptionPost($description));
+        $post = new Post($id, new titlePost($title), new descriptionPost($description), new userIdPost($user_id));
         $this->postRepository->create($post);
     }
 }

@@ -6,6 +6,7 @@ use Src\admin\posts\domain\contracts\postRepositoryInterface;
 use Src\admin\posts\domain\entities\Post;
 use Src\admin\posts\domain\valueObjects\titlePost;
 use Src\admin\posts\domain\valueObjects\descriptionPost;
+use Src\admin\posts\domain\valueObjects\userIdPost;
 use App\Models\Post as PostModel;
 
 class postRepository implements postRepositoryInterface
@@ -16,6 +17,7 @@ class postRepository implements postRepositoryInterface
             'id' => $post->getId(),
             'title' => $post->getTitle(),
             'description' => $post->getDescription(),
+            'user_id' => $post->getUserIdPost(),
         ]);
     }
 
@@ -35,18 +37,20 @@ class postRepository implements postRepositoryInterface
         return new Post(
             $post->id,
             new titlePost($post->title),
-            new descriptionPost($post->description)
+            new descriptionPost($post->description),
+            new userIdPost($post->user_id)
         );
     }
 
-    public function findAll(): array
+    public function getAllPosts(): array
     {
        $posts = PostModel::all();
         return $posts->map(function ($post) {
             return new Post(
                 $post->id,
                 new titlePost($post->title),
-                new descriptionPost($post->description)
+                new descriptionPost($post->description),
+                new userIdPost($post->user_id)
             );
         })->toArray();
     }

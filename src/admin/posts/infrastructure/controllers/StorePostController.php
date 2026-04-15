@@ -6,6 +6,7 @@ use Src\admin\posts\app\storePostUseCase;
 use Src\admin\posts\infrastructure\repositories\postRepository;
 use Src\admin\posts\infrastructure\validators\storePostRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 final class StorePostController extends Controller
 {
@@ -17,7 +18,8 @@ final class StorePostController extends Controller
             $storePost->execute(
                 $request->id,
                 $request->title,
-                $request->description
+                $request->description,
+                Auth::user()->id
             );
             return redirect()->route('admin.posts.index')->with('success', 'Post creado exitosamente');
         } catch (\Exception $e) {
