@@ -21,6 +21,7 @@ class userRepository implements UserRepositoryInterface
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
         ]);
+        $userModel->assignRole('User');
         $user = new User($userModel->id, new UserName($userModel->name), new UserEmail($userModel->email), new UserPassword($userModel->password));
         return $user; 
     }
@@ -43,8 +44,8 @@ class userRepository implements UserRepositoryInterface
     public function findAll(): Collection
     {
         // TODO: Implement findAll() method.
-        return UserModel::all()->map(function ($userModel) {
-            return new User($userModel->id, new UserName($userModel->name), new UserEmail($userModel->email), new UserPassword($userModel->password));
+        return UserModel::role('User')->get()->map(function ($userModel) {
+            return $userModel->toArray();
         });
     }
 }
