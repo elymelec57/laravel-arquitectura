@@ -4,6 +4,7 @@ namespace Src\admin\user\infrastructure\controllers;
 
 use Src\admin\user\app\CreateUserUseCase;
 use Src\admin\user\infrastructure\repositories\userRepository;
+use Src\shared\infrastructure\repository\UlidGenerator;
 use Src\admin\user\infrastructure\validators\storeUserRequest;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +14,9 @@ final class storeUserController extends Controller
     {
         try {
             $userRepository = new userRepository();
-            $createUser = new CreateUserUseCase($userRepository);
+            $Ulid = New UlidGenerator();
+            $createUser = new CreateUserUseCase($userRepository, $Ulid);
             $createUser->execute(
-                $request->id,
                 $request->name,
                 $request->email,
                 $request->password

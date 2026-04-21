@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { store, index } from '@/routes/admin/posts';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-vue-next';
 
+const page = usePage();
 const form = useForm({
-    id: 1,
     title: '',
     description: '',
 });
@@ -23,6 +25,25 @@ const submit = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div v-if="page.props.flash.error" class="mb-6">
+                    <Alert variant="destructive">
+                        <AlertCircle class="size-4" />
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>
+                            {{ page.props.flash.error }}
+                        </AlertDescription>
+                    </Alert>
+                </div>
+
+                <div v-if="page.props.flash.success" class="mb-6">
+                    <Alert class="bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-800">
+                        <AlertTitle>Éxito</AlertTitle>
+                        <AlertDescription>
+                            {{ page.props.flash.success }}
+                        </AlertDescription>
+                    </Alert>
+                </div>
+
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">

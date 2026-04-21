@@ -4,6 +4,7 @@ namespace Src\admin\posts\infrastructure\repositories;
 
 use Src\admin\posts\domain\contracts\ListPostsInterface;
 use Src\admin\posts\domain\entities\Post;
+use Src\admin\posts\domain\valueObjects\idPost;
 use Src\admin\posts\domain\valueObjects\titlePost;
 use Src\admin\posts\domain\valueObjects\descriptionPost;
 use Src\admin\posts\domain\valueObjects\userIdPost;
@@ -16,7 +17,7 @@ class listPostRepository implements ListPostsInterface
         $posts = PostModel::all();
         return $posts->map(function ($post) {
             return new Post(
-                $post->id,
+                new idPost($post->id),
                 new titlePost($post->title),
                 new descriptionPost($post->description),
                 new userIdPost($post->user_id)

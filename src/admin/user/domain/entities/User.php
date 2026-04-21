@@ -5,23 +5,24 @@ namespace Src\admin\user\domain\entities;
 use Src\admin\user\domain\valueObjects\UserEmail;
 use Src\admin\user\domain\valueObjects\UserName;
 use Src\admin\user\domain\valueObjects\UserPassword;
+use Src\admin\user\domain\valueObjects\UserId;
 
 class User
 {
-    private int $id;
+    private UserId $id;
     private UserName $name;
     private UserEmail $email;
     private UserPassword $password;
-    public function __construct(int $id, UserName $name, UserEmail $email, UserPassword $password) {
+    public function __construct(UserId $id, UserName $name, UserEmail $email, UserPassword $password) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
-        return $this->id;
+        return $this->id->value();
     }
 
     public function getName(): string
@@ -42,7 +43,7 @@ class User
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id->value(),
             'name' => $this->name->getName(),
             'email' => $this->email->getEmail(),
             'password' => $this->password->getPassword(),

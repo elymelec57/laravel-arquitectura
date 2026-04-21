@@ -9,6 +9,7 @@ use App\Models\User as UserModel;
 use Src\admin\user\domain\valueObjects\UserEmail;
 use Src\admin\user\domain\valueObjects\UserName;
 use Src\admin\user\domain\valueObjects\UserPassword;
+use Src\admin\user\domain\valueObjects\UserId;
 
 class userRepository implements UserRepositoryInterface
 {
@@ -22,7 +23,7 @@ class userRepository implements UserRepositoryInterface
             'password' => $user->getPassword(),
         ]);
         $userModel->assignRole('User');
-        $user = new User($userModel->id, new UserName($userModel->name), new UserEmail($userModel->email), new UserPassword($userModel->password));
+        $user = new User(new UserId($userModel->id), new UserName($userModel->name), new UserEmail($userModel->email), new UserPassword($userModel->password));
         return $user; 
     }
 

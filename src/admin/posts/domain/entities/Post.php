@@ -5,10 +5,11 @@ namespace Src\admin\posts\domain\entities;
 use Src\admin\posts\domain\valueObjects\titlePost;
 use Src\admin\posts\domain\valueObjects\descriptionPost;
 use Src\admin\posts\domain\valueObjects\userIdPost;
+use Src\admin\posts\domain\valueObjects\idPost;
 
 class Post
 {
-    private int $id;
+    private idPost $id;
     private titlePost $title;
     private descriptionPost $description;
     private userIdPost $user_id; // id del usuario que creo el post
@@ -18,7 +19,7 @@ class Post
     // private string $status;
     // private string $created_at;
     // private string $updated_at;
-    public function __construct(int $id, titlePost $title, descriptionPost $description, userIdPost $user_id,
+    public function __construct(idPost $id, titlePost $title, descriptionPost $description, userIdPost $user_id,
         // public string $image,
         // public string $category,
         // public string $tags,
@@ -32,9 +33,9 @@ class Post
         $this->user_id = $user_id;
     }
 
-    public function getId(): int
+    public function getId(): string
     {
-        return $this->id;
+        return $this->id->value();
     }
 
     public function getTitle(): string
@@ -55,7 +56,7 @@ class Post
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id->value(),
             'title' => $this->title->getTitle(),
             'description' => $this->description->getDescription(),
             'user_id' => $this->user_id->getUserId(),
